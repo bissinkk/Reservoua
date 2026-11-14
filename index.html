@@ -230,7 +230,7 @@
                             <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 font-bold">2</div>
                             <div>
                                 <h3 class="font-bold text-white mb-1">Швидка доставка по Україні</h3>
-                                <p class="text-sm text-slate-400">Відправляємо службою доставки «Нова пошта» або самовивіз у м. Київ.</p>
+                                <p class="text-sm text-slate-400">Відправляємо службою доставки «Нова пошта» по всій Україні або самовивіз зі складу в м. Київ.</p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
@@ -708,7 +708,8 @@
         }
     }
 
-    function handleImgError(img, productId) {
+    function handleImgError(img) {
+        const productId = img.dataset.pid || '';
         const candidates = [FALLBACK_IMAGES[productId], ...(ALT_IMAGES[productId] || [])].filter(Boolean);
         const step = Number(img.dataset.tryStep || 0);
         if (step < candidates.length) {
@@ -730,7 +731,7 @@
         }
         return `<div class="${heightCls} bg-slate-950 flex items-center justify-center p-4 watermark-img overflow-hidden">
                     <img src="${esc(src)}" alt="${esc(p.name)}" loading="lazy" draggable="false" class="max-h-full max-w-full object-contain"
-                         onerror="handleImgError(this, '${esc(p.id)}')">
+                         data-pid="${esc(p.id)}" onerror="handleImgError(this)">
                     <div class="img-shield"></div>
                 </div>`;
     }
@@ -762,7 +763,7 @@
                         <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">${esc(p.name)}</h3>
                         <p class="text-slate-400 text-sm mb-4 line-clamp-2">${esc(p.desc)}</p>
                         <div class="text-xs text-slate-400 bg-slate-950 p-3 rounded-xl border border-slate-800/60">
-                            <i class="fa-solid fa-microchip text-amber-400 mr-1.5"></i> ${esc(p.specs || 'Офіційна гарантія та підтримка')}
+                            <i class="fa-solid fa-microchip text-amber-400 mr-1.5"></i> ${esc(p.specs || 'Офіційна гарантія від виробника')}
                         </div>
                     </div>
                 </div>
@@ -848,8 +849,12 @@
         window.__readyKits = ready;
     }
 
-    function showModal(id) { const m = $(id); m.classList.remove('hidden'); m.classList.add('flex'); }
-    function hideModal(id) { const m = $(id); m.classList.remove('flex'); m.classList.add('hidden'); }
+    function syncScrollLock() {
+        const open = ['order-modal', 'details-modal'].some((id) => !$(id).classList.contains('hidden'));
+        document.body.style.overflow = open ? 'hidden' : '';
+    }
+    function showModal(id) { const m = $(id); m.classList.remove('hidden'); m.classList.add('flex'); syncScrollLock(); }
+    function hideModal(id) { const m = $(id); m.classList.remove('flex'); m.classList.add('hidden'); syncScrollLock(); }
 
     function openOrder(title) {
         selectedProductForOrder = title;
@@ -940,18 +945,18 @@
             <section class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
                 <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
                     <i class="fa-solid fa-shield-halved text-amber-400 mb-2"></i>
-                    <div class="text-sm font-bold text-white">Офіційна гарантія</div>
-                    <div class="text-xs text-slate-400 mt-1">Технічний супровід від команди Reservo.</div>
+                    <div class="text-sm font-bold text-white">Гарантія від виробника</div>
+                    <div class="text-xs text-slate-400 mt-1">Офіційна гарантія виробника на обладнання.</div>
                 </div>
                 <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
                     <i class="fa-solid fa-hand-holding-dollar text-amber-400 mb-2"></i>
-                    <div class="text-sm font-bold text-white">Оплата при отриманні</div>
-                    <div class="text-xs text-slate-400 mt-1">Розрахунок після перевірки обладнання.</div>
+                    <div class="text-sm font-bold text-white">Оплата після отримання</div>
+                    <div class="text-xs text-slate-400 mt-1">Розрахунок безпосередньо після отримання обладнання.</div>
                 </div>
                 <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
                     <i class="fa-solid fa-truck-fast text-amber-400 mb-2"></i>
                     <div class="text-sm font-bold text-white">Доставка по Україні</div>
-                    <div class="text-xs text-slate-400 mt-1">Самовивіз у м. Київ та Хмельницький.</div>
+                    <div class="text-xs text-slate-400 mt-1">«Нова пошта» по всій Україні або самовивіз зі складу в м. Київ.</div>
                 </div>
             </section>
 
