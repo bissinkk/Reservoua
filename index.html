@@ -136,25 +136,25 @@
                 </div>
 
                 <div class="lg:col-span-5">
-                    <div class="relative mx-auto max-w-md lg:max-w-none pt-6 pb-4">
-                        <div class="inline-flex items-center gap-3 bg-[#23262d]/95 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-2.5 shadow-2xl mb-3">
-                            <div class="w-8 h-8 rounded-xl bg-[#c8f92e]/15 border border-[#c8f92e]/30 flex items-center justify-center text-[#c8f92e]">
-                                <i class="fa-solid fa-bolt text-sm"></i>
+                    <div class="relative mx-auto max-w-md lg:max-w-none pt-2 pb-4">
+                        <div class="grid grid-cols-2 gap-2.5 sm:gap-3 mb-4">
+                            <div class="flex items-center gap-2.5 bg-[#23262d]/95 backdrop-blur-md border border-white/10 rounded-2xl px-3 py-2.5 shadow-2xl">
+                                <div class="w-8 h-8 rounded-xl bg-[#c8f92e]/15 border border-[#c8f92e]/30 flex items-center justify-center text-[#c8f92e] shrink-0">
+                                    <i class="fa-solid fa-bolt text-sm"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-white leading-tight">Інвертори Deye</div>
+                                    <div class="text-[10px] sm:text-[11px] text-zinc-400 leading-tight mt-0.5">6–20 кВт · 1 і 3 фази</div>
+                                </div>
                             </div>
-                            <div>
-                                <div class="text-xs font-bold text-white">Інвертори Deye</div>
-                                <div class="text-[11px] text-zinc-400">6–20 кВт · 1 і 3 фази</div>
-                            </div>
-                        </div>
 
-                        <div class="flex justify-end mb-4">
-                            <div class="inline-flex items-center gap-3 bg-[#23262d]/95 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-2.5 shadow-2xl">
-                                <div class="w-8 h-8 rounded-xl bg-[#c8f92e]/15 border border-[#c8f92e]/30 flex items-center justify-center text-[#c8f92e]">
+                            <div class="flex items-center gap-2.5 bg-[#23262d]/95 backdrop-blur-md border border-white/10 rounded-2xl px-3 py-2.5 shadow-2xl">
+                                <div class="w-8 h-8 rounded-xl bg-[#c8f92e]/15 border border-[#c8f92e]/30 flex items-center justify-center text-[#c8f92e] shrink-0">
                                     <i class="fa-solid fa-battery-full text-sm"></i>
                                 </div>
-                                <div>
-                                    <div class="text-xs font-bold text-white">Акумулятори LiFePO₄</div>
-                                    <div class="text-[11px] text-zinc-400">5–16 кВт·год</div>
+                                <div class="min-w-0">
+                                    <div class="text-xs font-bold text-white leading-tight">Акумулятори LiFePO₄</div>
+                                    <div class="text-[10px] sm:text-[11px] text-zinc-400 leading-tight mt-0.5">5–16 кВт·год</div>
                                 </div>
                             </div>
                         </div>
@@ -259,7 +259,7 @@
             </div>
         </div>
 
-        <!-- Delivery (Самовивіз першим пунктом) -->
+        <!-- Delivery -->
         <div id="delivery" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -436,7 +436,7 @@
     <script>
     const CONFIG = {
         SHEET_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTWv8diYGSqt0DDNvgF1NaWXuM5d8ZWu9YYK4boQMtkE1iCU7_RBadqBjtUp5UDwcyNN_DUfISohw98/pub?gid=655523882&single=true&output=csv',
-        ORDER_ENDPOINT: 'https://reservoua.bissinkk.workers.dev',
+        ORDER_ENDPOINT: 'https://reservo-orders.bissinkk.workers.dev',
         IMG_BASE: '',
         MANAGER_URL: 'https://t.me/reservomanager'
     };
