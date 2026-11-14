@@ -22,6 +22,8 @@
             pointer-events: none; backdrop-filter: blur(2px);
         }
         .watermark-img .img-shield { position: absolute; inset: 0; z-index: 1; }
+        .modal-solid { background: #0a0f1f; }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
 
         /* ===== Тема «Світло»: сяйво, промені, скло ===== */
         body.bg-slate-950 { background:
@@ -366,11 +368,13 @@
     </div>
 
     <!-- Details Modal -->
-    <div id="details-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
-            <button data-action="close-details" class="absolute top-6 right-6 text-slate-400 hover:text-white" aria-label="Закрити">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
+    <div id="details-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-3 sm:p-4">
+        <div class="modal-solid border border-slate-800 rounded-3xl max-w-4xl w-full p-5 sm:p-8 relative shadow-2xl max-h-[92vh] overflow-y-auto">
+            <div class="sticky top-0 z-20 h-0 flex justify-end">
+                <button data-action="close-details" class="w-9 h-9 -mt-1 flex items-center justify-center rounded-full bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white shadow-lg" aria-label="Закрити">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
             <div id="details-content"></div>
         </div>
     </div>
@@ -553,19 +557,59 @@
         ));
     }
 
-    function money(n) { return Number(n).toLocaleString('uk-UA') + ' ₴'; }
+    // Ціна: 175 000 ₴ (нерозривні пробіли, однаково у всіх браузерах — без залежності від локалі)
+    function fmtNum(n) {
+        return String(Math.round(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    }
+    function money(n) { return fmtNum(n) + ' ₴'; }
 
-    function formatBadge(raw) {
-        const text = String(raw || '').trim();
-        if (!text) return '<span></span>';
-        const parts = text
-            .split(/\s*(?:•|\||\/|\n)\s*|\s+(?=(?:Очікується|В наявності|Стійковий|З дисплеєм|Топ|Хіт|IP66))/i)
+    // Блок ціни: число великим, «₴» меншим і приглушеним; стара ціна і знижка — окремим рядком
+    function priceHtml(p, size) {
+        const big = size === 'big';
+        const numCls = big ? 'text-3xl sm:text-4xl' : 'text-2xl sm:text-[1.7rem]';
+        if (!p.price) {
+            return `<div class="font-extrabold text-white ${big ? 'text-2xl' : 'text-xl'} leading-tight">Ціна за запитом</div>`;
+        }
+        const hasOld = p.oldPrice > p.price;
+        const pct = hasOld ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+        return `
+            <div class="whitespace-nowrap leading-none">
+                <span class="${numCls} font-extrabold text-white tracking-tight tabular-nums">${fmtNum(p.price)}</span><span class="${big ? 'text-xl' : 'text-base'} font-bold text-amber-400 ml-1">₴</span>
+            </div>
+            ${hasOld ? `
+            <div class="flex items-center gap-2 mt-2 whitespace-nowrap">
+                <span class="text-sm text-slate-500 line-through tabular-nums">${money(p.oldPrice)}</span>
+                ${pct > 0 ? `<span class="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 rounded-md px-1.5 py-0.5">−${pct}%</span>` : ''}
+            </div>` : ''}`;
+    }
+
+    // Ярлики товару. Максимум 2, кожен в окремому ряду:
+    //   1) наявність («В наявності» / «Очікується …»),
+    //   2) особлива позначка («Хіт продажів», «Топ потужність», «IP66 захист» …).
+    // Якщо в колонці badge наявність не вказана — вважаємо, що товар «В наявності».
+    function getLabels(raw) {
+        const parts = String(raw || '')
+            .split(/\s*(?:•|\||\n)\s*|\s+(?=(?:Очікується|В наявності|Під замовлення))/i)
             .map((s) => s.trim())
             .filter(Boolean);
-        if (parts.length > 1) {
-            return `<div class="inline-flex flex-col items-start gap-0.5 bg-amber-500/10 text-amber-400 text-[11px] font-bold px-3 py-1.5 rounded-2xl border border-amber-500/20 leading-tight">${parts.map((line) => `<span>${esc(line)}</span>`).join('')}</div>`;
-        }
-        return `<span class="bg-amber-500/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/20">${esc(text)}</span>`;
+        const isStock = (t) => /наявн|очіку|під замовлення|немає|закінчи/i.test(t);
+        const stock = parts.find(isStock) || 'В наявності';
+        const special = parts.filter((t) => !isStock(t));
+        const labels = [{ text: stock, kind: /очіку|під замовлення|немає|закінчи/i.test(stock) ? 'wait' : 'stock' }];
+        if (special.length) labels.push({ text: special.join(' · '), kind: 'special' });
+        return labels;
+    }
+
+    function labelsHtml(raw) {
+        const styles = {
+            stock:   'bg-emerald-500/10 text-emerald-400 border-emerald-500/25',
+            wait:    'bg-sky-500/10 text-sky-300 border-sky-500/25',
+            special: 'bg-amber-500/10 text-amber-400 border-amber-500/25'
+        };
+        const icons = { stock: 'fa-circle-check', wait: 'fa-clock', special: 'fa-fire' };
+        return `<div class="flex flex-col items-start gap-1.5">${getLabels(raw).map((l) =>
+            `<span class="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full border ${styles[l.kind]}"><i class="fa-solid ${icons[l.kind]} text-[10px]"></i>${esc(l.text)}</span>`
+        ).join('')}</div>`;
     }
 
     function imageSrc(image) {
@@ -617,7 +661,8 @@
         const col = (name) => header.indexOf(name.toLowerCase());
         const idx = {
             id: col('id'), category: col('category'), name: col('name'), badge: col('badge'),
-            price: col('price'), oldPrice: col('oldprice'), image: col('image'), desc: col('desc'), specs: col('specs')
+            price: col('price'), oldPrice: col('oldprice'), image: col('image'), desc: col('desc'), specs: col('specs'),
+            details: col('details'), features: col('features')
         };
         if (idx.id < 0 || idx.name < 0 || idx.price < 0) return [];
         const get = (r, k) => (idx[k] >= 0 ? (r[idx[k]] ?? '').trim() : '');
@@ -636,7 +681,9 @@
                 oldPrice: parseNumber(get(r, 'oldprice')),
                 image: get(r, 'image') || FALLBACK_IMAGES[id] || '',
                 desc: get(r, 'desc'),
-                specs: get(r, 'specs')
+                specs: get(r, 'specs'),
+                details: get(r, 'details'),
+                features: get(r, 'features')
             });
         }
         return list;
@@ -674,24 +721,18 @@
         }));
     }
 
-    function imageBlock(p) {
+    function imageBlock(p, heightCls) {
+        heightCls = heightCls || 'h-64';
         const primaryFile = p.image || FALLBACK_IMAGES[p.id] || '';
         const src = imageSrc(primaryFile);
         if (!src) {
-            return `<div class="h-64 bg-slate-950 flex items-center justify-center p-4 watermark-img"><i class="fa-solid fa-solar-panel text-6xl text-slate-800"></i></div>`;
+            return `<div class="${heightCls} bg-slate-950 flex items-center justify-center p-4 watermark-img"><i class="fa-solid fa-solar-panel text-6xl text-slate-800"></i></div>`;
         }
-        return `<div class="h-64 bg-slate-950 flex items-center justify-center p-4 watermark-img overflow-hidden">
-                    <img src="${esc(src)}" alt="${esc(p.name)}" loading="lazy" draggable="false" class="max-h-full object-contain"
+        return `<div class="${heightCls} bg-slate-950 flex items-center justify-center p-4 watermark-img overflow-hidden">
+                    <img src="${esc(src)}" alt="${esc(p.name)}" loading="lazy" draggable="false" class="max-h-full max-w-full object-contain"
                          onerror="handleImgError(this, '${esc(p.id)}')">
                     <div class="img-shield"></div>
                 </div>`;
-    }
-
-    function priceBlock(p, big) {
-        const cls = big ? 'text-xl sm:text-3xl' : 'text-lg sm:text-2xl';
-        if (!p.price) return `<span class="${cls} font-extrabold text-white whitespace-nowrap">Ціна за запитом</span>`;
-        const old = p.oldPrice > p.price ? `<span class="block text-xs text-slate-500 line-through whitespace-nowrap">${money(p.oldPrice)}</span>` : '';
-        return `<span class="${cls} font-extrabold text-white whitespace-nowrap">${money(p.price)}</span>${old}`;
     }
 
     function renderProducts() {
@@ -714,24 +755,24 @@
                 <div>
                     ${imageBlock(p)}
                     <div class="p-6">
-                        <div class="flex items-start justify-between gap-2 mb-3">
-                            ${formatBadge(p.badge)}
+                        <div class="flex items-start justify-between gap-3 mb-4">
+                            ${labelsHtml(p.badge)}
                             <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold shrink-0 pt-1">${esc(CATEGORY_LABELS[p.category] || '')}</span>
                         </div>
                         <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">${esc(p.name)}</h3>
                         <p class="text-slate-400 text-sm mb-4 line-clamp-2">${esc(p.desc)}</p>
-                        <div class="text-xs text-slate-400 bg-slate-950 p-3 rounded-xl border border-slate-800/60 mb-6">
+                        <div class="text-xs text-slate-400 bg-slate-950 p-3 rounded-xl border border-slate-800/60">
                             <i class="fa-solid fa-microchip text-amber-400 mr-1.5"></i> ${esc(p.specs || 'Офіційна гарантія та підтримка')}
                         </div>
                     </div>
                 </div>
-                <div class="p-4 sm:p-6 pt-4 flex items-center justify-between gap-2 border-t border-slate-800/60 mt-auto">
-                    <div class="shrink-0">${priceBlock(p, false)}</div>
-                    <div class="flex items-center space-x-2 shrink-0">
-                        <button data-action="details" data-id="${esc(p.id)}" class="bg-slate-800 hover:bg-slate-700 text-white p-2.5 sm:p-3 rounded-xl transition" title="Детальніше" aria-label="Детальніше">
-                            <i class="fa-solid fa-circle-info"></i>
+                <div class="px-6 pb-6 pt-5 border-t border-slate-800/60 mt-auto">
+                    <div class="mb-4">${priceHtml(p, 'card')}</div>
+                    <div class="flex items-stretch gap-2">
+                        <button data-action="details" data-id="${esc(p.id)}" class="flex-1 inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-4 py-3 rounded-xl transition text-sm whitespace-nowrap" aria-label="Детальніше про товар">
+                            <i class="fa-solid fa-circle-info text-amber-400"></i><span>Детальніше</span>
                         </button>
-                        <button data-action="order" data-id="${esc(p.id)}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl transition shadow-lg shadow-amber-500/10 whitespace-nowrap text-xs sm:text-sm">
+                        <button data-action="order" data-id="${esc(p.id)}" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-3 rounded-xl transition shadow-lg shadow-amber-500/10 whitespace-nowrap text-sm">
                             Замовити
                         </button>
                     </div>
@@ -795,7 +836,7 @@
                         </ul>
                     </div>
                     <div class="flex items-center justify-between gap-2 border-t border-slate-800 pt-5 mt-auto">
-                        <span class="text-lg sm:text-2xl font-extrabold text-white whitespace-nowrap shrink-0">${hasPrice ? money(total) : 'Ціна за запитом'}</span>
+                        <div class="shrink-0">${priceHtml({ price: hasPrice ? total : 0, oldPrice: 0 }, 'card')}</div>
                         <button data-action="order-kit" data-kit="${i}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 sm:px-5 py-3 rounded-xl transition shadow-lg shadow-amber-500/10 whitespace-nowrap text-xs sm:text-sm shrink-0">
                             Замовити комплект
                         </button>
@@ -818,43 +859,104 @@
         setTimeout(() => $('client-name').focus(), 50);
     }
 
+    function specsHtml(specs) {
+        const items = String(specs || '').split('|').map((x) => x.trim()).filter(Boolean);
+        const rows = [], chips = [];
+        items.forEach((it) => {
+            const m = it.match(/^([^:]{1,40}):\s*(.+)$/);
+            if (m) rows.push([m[1].trim(), m[2].trim()]); else chips.push(it);
+        });
+        if (!rows.length && !chips.length) return '<p class="text-slate-400 text-sm">Характеристики уточнюйте у менеджера.</p>';
+        return `
+            ${rows.length ? `<dl class="divide-y divide-slate-800/70 text-sm">${rows.map(([k, v]) => `
+                <div class="flex items-baseline justify-between gap-4 py-2.5">
+                    <dt class="text-slate-400">${esc(k)}</dt>
+                    <dd class="text-white font-semibold text-right">${esc(v)}</dd>
+                </div>`).join('')}</dl>` : ''}
+            ${chips.length ? `<div class="flex flex-wrap gap-2 ${rows.length ? 'mt-4 pt-4 border-t border-slate-800/70' : ''}">${chips.map((c) =>
+                `<span class="text-xs font-semibold text-slate-200 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5">${esc(c)}</span>`).join('')}</div>` : ''}`;
+    }
+
+    function splitList(raw) {
+        return String(raw || '').split(/\n|\|/).map((x) => x.replace(/^[\s•\-–—*]+/, '').trim()).filter(Boolean);
+    }
+
     function openDetails(productId) {
         const p = products.find((item) => item.id === productId);
         if (!p) return;
-        const ext = EXTENDED_INFO[p.id];
-        const specItems = String(p.specs || '').split('|').map((s) => s.trim()).filter(Boolean);
+        const ext = EXTENDED_INFO[p.id] || {};
+        // Пріоритет: колонки таблиці (details / features) → вбудований розширений опис → короткий desc
+        const summary = p.details || ext.summary || p.desc;
+        const features = (p.features && splitList(p.features).length) ? splitList(p.features) : (ext.highlights || []);
+        const shortDesc = p.desc && p.desc !== summary ? p.desc : '';
+        const tgText = encodeURIComponent('Доброго дня! Цікавить: ' + p.name);
 
         $('details-content').innerHTML = `
-            <h2 class="text-xl sm:text-2xl font-extrabold text-white mb-3 pr-8 leading-snug">${esc(p.name)}</h2>
-            <div class="mb-4">${formatBadge(p.badge)}</div>
-            <p class="text-slate-200 text-sm sm:text-base mb-4 leading-relaxed">${esc(ext ? ext.summary : p.desc)}</p>
-            ${p.desc && ext ? `<p class="text-slate-400 text-sm mb-5 leading-relaxed">${esc(p.desc)}</p>` : ''}
-            ${ext && ext.highlights ? `
-                <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
-                    <h4 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3">Ключові переваги та можливості:</h4>
-                    <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                        ${ext.highlights.map((item) => `
-                            <li class="flex items-start gap-2.5">
-                                <i class="fa-solid fa-check text-amber-400 mt-1 shrink-0"></i>
-                                <span>${esc(item)}</span>
-                            </li>
-                        `).join('')}
-                    </ul>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="rounded-2xl overflow-hidden border border-slate-800">${imageBlock(p, 'h-64 sm:h-80 md:h-72')}</div>
                 </div>
-            ` : ''}
-            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-6">
-                <h4 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2.5">Технічні характеристики:</h4>
-                ${specItems.length > 1
-                    ? `<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300 text-xs sm:text-sm">${specItems.map((s) => `<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0"></span><span>${esc(s)}</span></li>`).join('')}</ul>`
-                    : `<p class="text-slate-300 text-sm">${esc(p.specs)}</p>`
-                }
+                <div class="md:col-span-3 flex flex-col">
+                    <div class="flex items-start justify-between gap-3 mb-3 pr-10">
+                        ${labelsHtml(p.badge)}
+                        <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold shrink-0 pt-1">${esc(CATEGORY_LABELS[p.category] || '')}</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-white mb-5 leading-snug">${esc(p.name)}</h2>
+                    <div class="mb-5">${priceHtml(p, 'big')}</div>
+                    <div class="flex flex-col sm:flex-row gap-2.5 mt-auto">
+                        <button data-action="order-from-details" data-id="${esc(p.id)}" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3.5 rounded-xl transition shadow-lg whitespace-nowrap">
+                            Оформити замовлення
+                        </button>
+                        <a href="${esc(CONFIG.MANAGER_URL)}?text=${tgText}" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold px-5 py-3.5 rounded-xl transition whitespace-nowrap">
+                            <i class="fa-brands fa-telegram text-sky-400 text-lg"></i><span>Запитати менеджера</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="flex items-center justify-between gap-2 pt-3 border-t border-slate-800/80">
-                <div class="shrink-0">${priceBlock(p, true)}</div>
-                <button data-action="order-from-details" data-id="${esc(p.id)}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 sm:px-6 py-3 sm:py-3.5 rounded-xl transition shadow-lg whitespace-nowrap text-xs sm:text-base shrink-0">
-                    Оформити замовлення
-                </button>
-            </div>`;
+
+            <section class="mb-6">
+                <h4 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3">Опис</h4>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed">${esc(summary)}</p>
+                ${shortDesc ? `<p class="text-slate-400 text-sm leading-relaxed mt-3">${esc(shortDesc)}</p>` : ''}
+            </section>
+
+            ${features.length ? `
+            <section class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-6">
+                <h4 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3">Ключові переваги та можливості</h4>
+                <ul class="space-y-2.5 text-sm text-slate-300 leading-relaxed">
+                    ${features.map((item) => `
+                        <li class="flex items-start gap-2.5">
+                            <i class="fa-solid fa-check text-amber-400 mt-1 shrink-0"></i>
+                            <span>${esc(item)}</span>
+                        </li>`).join('')}
+                </ul>
+            </section>` : ''}
+
+            <section class="bg-slate-950 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-6">
+                <h4 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2">Технічні характеристики</h4>
+                ${specsHtml(p.specs)}
+            </section>
+
+            <section class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+                <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
+                    <i class="fa-solid fa-shield-halved text-amber-400 mb-2"></i>
+                    <div class="text-sm font-bold text-white">Офіційна гарантія</div>
+                    <div class="text-xs text-slate-400 mt-1">Технічний супровід від команди Reservo.</div>
+                </div>
+                <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
+                    <i class="fa-solid fa-hand-holding-dollar text-amber-400 mb-2"></i>
+                    <div class="text-sm font-bold text-white">Оплата при отриманні</div>
+                    <div class="text-xs text-slate-400 mt-1">Розрахунок після перевірки обладнання.</div>
+                </div>
+                <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
+                    <i class="fa-solid fa-truck-fast text-amber-400 mb-2"></i>
+                    <div class="text-sm font-bold text-white">Доставка по Україні</div>
+                    <div class="text-xs text-slate-400 mt-1">Самовивіз у м. Київ та Хмельницький.</div>
+                </div>
+            </section>
+
+            <p class="text-[11px] text-slate-500">Код товару: ${esc(p.id)}</p>`;
+        $('details-modal').firstElementChild.scrollTop = 0;
         showModal('details-modal');
     }
 
