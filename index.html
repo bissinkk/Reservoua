@@ -26,7 +26,6 @@
         }
         .watermark-img .img-shield { position: absolute; inset: 0; z-index: 1; }
 
-        /* Фірмова палітра Reservo Volt (темний графіт + кислотний лайм #c8f92e) */
         .btn-volt {
             background: #c8f92e;
             color: #111317;
@@ -99,7 +98,6 @@
     <section class="hero-glow relative overflow-hidden py-14 sm:py-20 lg:py-28 border-b border-white/[0.06]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Left Column -->
                 <div class="lg:col-span-7">
                     <div class="inline-flex items-center space-x-2 bg-[#23262d] border border-white/10 px-3.5 py-1.5 rounded-full text-zinc-200 text-xs font-semibold mb-6">
                         <i class="fa-solid fa-shield-halved text-[#c8f92e] shrink-0"></i>
@@ -121,11 +119,10 @@
                             <span>Розрахувати систему</span>
                         </a>
                     </div>
-                    <!-- Trust Badges -->
                     <div class="flex flex-wrap gap-2.5">
                         <div class="inline-flex items-center gap-2 bg-[#23262d]/90 border border-white/10 px-3.5 py-2 rounded-full text-xs font-semibold text-zinc-200">
                             <i class="fa-solid fa-warehouse text-[#c8f92e]"></i>
-                            <span>Склад у Києві</span>
+                            <span>Самовивіз у м. Київ (Шулявська)</span>
                         </div>
                         <div class="inline-flex items-center gap-2 bg-[#23262d]/90 border border-white/10 px-3.5 py-2 rounded-full text-xs font-semibold text-zinc-200">
                             <i class="fa-solid fa-truck-fast text-[#c8f92e]"></i>
@@ -138,10 +135,8 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Interactive System Diagram -->
                 <div class="lg:col-span-5">
                     <div class="relative mx-auto max-w-md lg:max-w-none pt-6 pb-4">
-                        <!-- Top floating badge -->
                         <div class="inline-flex items-center gap-3 bg-[#23262d]/95 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-2.5 shadow-2xl mb-3">
                             <div class="w-8 h-8 rounded-xl bg-[#c8f92e]/15 border border-[#c8f92e]/30 flex items-center justify-center text-[#c8f92e]">
                                 <i class="fa-solid fa-bolt text-sm"></i>
@@ -152,7 +147,6 @@
                             </div>
                         </div>
 
-                        <!-- Right floating badge -->
                         <div class="flex justify-end mb-4">
                             <div class="inline-flex items-center gap-3 bg-[#23262d]/95 backdrop-blur-md border border-white/10 rounded-2xl px-4 py-2.5 shadow-2xl">
                                 <div class="w-8 h-8 rounded-xl bg-[#c8f92e]/15 border border-[#c8f92e]/30 flex items-center justify-center text-[#c8f92e]">
@@ -165,7 +159,6 @@
                             </div>
                         </div>
 
-                        <!-- Platform + Inverter + Battery visual -->
                         <div class="relative bg-gradient-to-b from-[#23262d]/80 to-[#14161b] border border-white/10 rounded-3xl p-6 sm:p-8 shadow-2xl">
                             <div class="grid grid-cols-2 gap-4 items-end relative z-10">
                                 <div class="bg-[#181a1f] border border-white/10 rounded-2xl p-3 flex flex-col items-center">
@@ -191,7 +184,7 @@
         </div>
     </section>
 
-    <!-- Catalog (Світла секція з темними картками товарів) -->
+    <!-- Catalog -->
     <section id="catalog" class="py-20 bg-[#f6f7f9] text-[#111317]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-6">
@@ -212,7 +205,7 @@
         </div>
     </section>
 
-    <!-- Kits (Темна секція) -->
+    <!-- Kits -->
     <section id="kits" class="py-20 bg-[#181a1f] border-y border-white/[0.06]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12">
@@ -224,7 +217,7 @@
         </div>
     </section>
 
-    <!-- Calculator & Delivery (Світла секція) -->
+    <!-- Calculator & Delivery -->
     <section id="calculator" class="py-24 bg-[#f6f7f9] text-[#111317]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
@@ -266,7 +259,7 @@
             </div>
         </div>
 
-        <!-- Delivery inside light block -->
+        <!-- Delivery (Самовивіз першим пунктом) -->
         <div id="delivery" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -276,19 +269,26 @@
                         <div class="flex items-start space-x-4">
                             <div class="w-10 h-10 rounded-xl bg-[#e8f7b8] border border-[#c8f92e] flex items-center justify-center shrink-0 text-[#435900] font-extrabold">1</div>
                             <div>
-                                <h3 class="font-bold text-[#111317] mb-1">Оплата після отримання</h3>
-                                <p class="text-sm text-zinc-600">Розрахунок здійснюється безпосередньо після отримання обладнання.</p>
+                                <h3 class="font-bold text-[#111317] mb-1">Самовивіз зі складу в м. Київ</h3>
+                                <p class="text-sm text-zinc-600">Забрати обладнання особисто можна зі складу в м. Київ (м. Шулявська) або в м. Хмельницький за попереднім резервом.</p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
                             <div class="w-10 h-10 rounded-xl bg-[#e8f7b8] border border-[#c8f92e] flex items-center justify-center shrink-0 text-[#435900] font-extrabold">2</div>
                             <div>
                                 <h3 class="font-bold text-[#111317] mb-1">Швидка доставка по Україні</h3>
-                                <p class="text-sm text-zinc-600">Відправляємо службою доставки «Нова пошта» по всій Україні або самовивіз зі складу в м. Київ (м. Шулявська).</p>
+                                <p class="text-sm text-zinc-600">Відправляємо службою доставки «Нова пошта» по всій Україні в день замовлення.</p>
                             </div>
                         </div>
                         <div class="flex items-start space-x-4">
                             <div class="w-10 h-10 rounded-xl bg-[#e8f7b8] border border-[#c8f92e] flex items-center justify-center shrink-0 text-[#435900] font-extrabold">3</div>
+                            <div>
+                                <h3 class="font-bold text-[#111317] mb-1">Оплата після отримання</h3>
+                                <p class="text-sm text-zinc-600">Розрахунок здійснюється безпосередньо при отриманні та перевірці обладнання.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-[#e8f7b8] border border-[#c8f92e] flex items-center justify-center shrink-0 text-[#435900] font-extrabold">4</div>
                             <div>
                                 <h3 class="font-bold text-[#111317] mb-1">Гарантія від виробника</h3>
                                 <p class="text-sm text-zinc-600">Офіційна гарантія 5 років від виробника на все обладнання.</p>
@@ -308,7 +308,7 @@
         </div>
     </section>
 
-    <!-- Electricians & Partner Program (Темна секція) -->
+    <!-- Electricians & Partner Program -->
     <section id="partners" class="py-24 bg-[#181a1f] border-t border-white/[0.06]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12">
@@ -436,7 +436,7 @@
     <script>
     const CONFIG = {
         SHEET_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTWv8diYGSqt0DDNvgF1NaWXuM5d8ZWu9YYK4boQMtkE1iCU7_RBadqBjtUp5UDwcyNN_DUfISohw98/pub?gid=655523882&single=true&output=csv',
-        ORDER_ENDPOINT: 'https://reservo-orders.bissinkk.workers.dev',
+        ORDER_ENDPOINT: 'https://reservoua.bissinkk.workers.dev',
         IMG_BASE: '',
         MANAGER_URL: 'https://t.me/reservomanager'
     };
@@ -988,19 +988,19 @@
 
             <section class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
                 <div class="bg-[#121317] border border-white/[0.07] rounded-2xl p-4">
-                    <i class="fa-solid fa-shield-halved text-[#c8f92e] mb-2"></i>
-                    <div class="text-sm font-bold text-white">Офіційна гарантія</div>
-                    <div class="text-xs text-zinc-400 mt-1">Технічний супровід від команди Reservo.</div>
-                </div>
-                <div class="bg-[#121317] border border-white/[0.07] rounded-2xl p-4">
-                    <i class="fa-solid fa-hand-holding-dollar text-[#c8f92e] mb-2"></i>
-                    <div class="text-sm font-bold text-white">Оплата при отриманні</div>
-                    <div class="text-xs text-zinc-400 mt-1">Розрахунок після перевірки обладнання.</div>
+                    <i class="fa-solid fa-warehouse text-[#c8f92e] mb-2"></i>
+                    <div class="text-sm font-bold text-white">Самовивіз зі складу</div>
+                    <div class="text-xs text-zinc-400 mt-1">м. Київ (м. Шулявська) та м. Хмельницький.</div>
                 </div>
                 <div class="bg-[#121317] border border-white/[0.07] rounded-2xl p-4">
                     <i class="fa-solid fa-truck-fast text-[#c8f92e] mb-2"></i>
                     <div class="text-sm font-bold text-white">Доставка по Україні</div>
-                    <div class="text-xs text-zinc-400 mt-1">Самовивіз у м. Київ (Шулявська) та Хмельницький.</div>
+                    <div class="text-xs text-zinc-400 mt-1">Відправка «Новою поштою» та оплата при отриманні.</div>
+                </div>
+                <div class="bg-[#121317] border border-white/[0.07] rounded-2xl p-4">
+                    <i class="fa-solid fa-shield-halved text-[#c8f92e] mb-2"></i>
+                    <div class="text-sm font-bold text-white">Офіційна гарантія</div>
+                    <div class="text-xs text-zinc-400 mt-1">Гарантія 5 років та супровід команди Reservo.</div>
                 </div>
             </section>
 
