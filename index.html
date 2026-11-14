@@ -10,6 +10,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         html { scroll-behavior: smooth; }
+        section[id], footer[id] { scroll-margin-top: 96px; }
         .watermark-img { position: relative; }
         .watermark-img img { -webkit-user-drag: none; user-select: none; -webkit-touch-callout: none; }
         .watermark-img::after {
@@ -86,18 +87,18 @@
                 </div>
             </div>
             <nav class="hidden lg:flex items-center space-x-7 text-sm font-medium text-slate-300">
-                <a href="#catalog" class="hover:text-amber-400 transition">Каталог</a>
-                <a href="#kits" class="hover:text-amber-400 transition">Комплекти</a>
-                <a href="#calculator" class="hover:text-amber-400 transition">Підбір потужності</a>
-                <a href="#delivery" class="hover:text-amber-400 transition">Оплата і доставка</a>
-                <a href="#partners" class="hover:text-amber-400 transition">Електрикам</a>
+                <a href="#catalog" data-scroll="start" class="hover:text-amber-400 transition">Каталог</a>
+                <a href="#kits" data-scroll="start" class="hover:text-amber-400 transition">Комплекти</a>
+                <a href="#calculator" data-scroll="center" class="hover:text-amber-400 transition">Підбір потужності</a>
+                <a href="#delivery" data-scroll="center" class="hover:text-amber-400 transition">Оплата і доставка</a>
+                <a href="#partners" data-scroll="center" class="hover:text-amber-400 transition">Електрикам</a>
             </nav>
             <div class="flex items-center space-x-2 sm:space-x-4 shrink-0">
                 <a href="https://t.me/reservomanager" target="_blank" rel="noopener" class="flex items-center justify-center sm:space-x-2 bg-slate-900 border border-slate-800 hover:border-amber-500/50 w-10 h-10 sm:w-auto sm:h-auto sm:px-4 sm:py-2.5 rounded-xl text-sm font-semibold transition group" aria-label="Telegram">
                     <i class="fa-brands fa-telegram text-sky-400 text-lg group-hover:scale-110 transition"></i>
                     <span class="hidden sm:inline">@reservomanager</span>
                 </a>
-                <a href="#catalog" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-amber-500/20 transition whitespace-nowrap">
+                <a href="#catalog" data-scroll="start" class="bg-amber-500 hover:bg-amber-400 text-slate-950 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-lg shadow-amber-500/20 transition whitespace-nowrap">
                     Обрати обладнання
                 </a>
             </div>
@@ -121,11 +122,11 @@
                     Надійні гібридні та автономні інвертори Deye, промислові акумулятори LiFePO₄ та системи All-in-One зі швидкою доставкою по Україні та офіційною гарантією від виробника.
                 </p>
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#catalog" class="inline-flex justify-center items-center space-x-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-8 py-4 rounded-xl shadow-xl shadow-amber-500/20 transition text-base">
+                    <a href="#catalog" data-scroll="start" class="inline-flex justify-center items-center space-x-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-8 py-4 rounded-xl shadow-xl shadow-amber-500/20 transition text-base">
                         <span>Перейти до каталогу</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </a>
-                    <a href="#calculator" class="inline-flex justify-center items-center space-x-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white font-semibold px-8 py-4 rounded-xl transition text-base">
+                    <a href="#calculator" data-scroll="center" class="inline-flex justify-center items-center space-x-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-white font-semibold px-8 py-4 rounded-xl transition text-base">
                         <i class="fa-solid fa-calculator text-amber-400"></i>
                         <span>Розрахувати систему</span>
                     </a>
@@ -166,7 +167,7 @@
     </section>
 
     <!-- Calculator -->
-    <section id="calculator" class="py-20">
+    <section id="calculator" class="py-24">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <span class="text-amber-400 text-xs font-bold uppercase tracking-widest block mb-2">Інтерактивний підбір</span>
@@ -200,7 +201,7 @@
                     <p id="calc-recommendation" class="text-slate-300 text-sm mb-2"></p>
                     <p class="text-slate-500 text-xs mb-4">Ємність акумулятора залежить від того, скільки годин автономії вам потрібно — менеджер уточнить це під ваш графік споживання.</p>
                     <div class="flex flex-wrap gap-3">
-                        <a href="#catalog" class="inline-block bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition">Переглянути в каталозі</a>
+                        <a href="#catalog" data-scroll="start" class="inline-block bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-semibold px-5 py-2.5 rounded-xl text-sm transition">Переглянути в каталозі</a>
                         <a href="https://t.me/reservomanager" target="_blank" rel="noopener" class="inline-block bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold px-5 py-2.5 rounded-xl text-sm transition">Уточнити у менеджера</a>
                     </div>
                 </div>
@@ -209,48 +210,50 @@
     </section>
 
     <!-- Delivery -->
-    <section id="delivery" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-                <span class="text-amber-400 text-xs font-bold uppercase tracking-widest block mb-2">Умови співпраці</span>
-                <h2 class="text-3xl font-extrabold text-white mb-6">Оплата та доставка в Україні</h2>
-                <div class="space-y-6 text-slate-300">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 font-bold">1</div>
-                        <div>
-                            <h3 class="font-bold text-white mb-1">Оплата після отримання</h3>
-                            <p class="text-sm text-slate-400">Розрахунок здійснюється безпосередньо після отримання обладнання.</p>
+    <section id="delivery" class="py-24 border-t border-slate-900/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-amber-400 text-xs font-bold uppercase tracking-widest block mb-2">Умови співпраці</span>
+                    <h2 class="text-3xl font-extrabold text-white mb-6">Оплата та доставка в Україні</h2>
+                    <div class="space-y-6 text-slate-300">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 font-bold">1</div>
+                            <div>
+                                <h3 class="font-bold text-white mb-1">Оплата після отримання</h3>
+                                <p class="text-sm text-slate-400">Розрахунок здійснюється безпосередньо після отримання обладнання.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 font-bold">2</div>
-                        <div>
-                            <h3 class="font-bold text-white mb-1">Швидка доставка по Україні</h3>
-                            <p class="text-sm text-slate-400">Відправляємо службою доставки «Нова пошта» або самовивіз у м. Київ.</p>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 font-bold">2</div>
+                            <div>
+                                <h3 class="font-bold text-white mb-1">Швидка доставка по Україні</h3>
+                                <p class="text-sm text-slate-400">Відправляємо службою доставки «Нова пошта» або самовивіз у м. Київ.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-start space-x-4">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 font-bold">3</div>
-                        <div>
-                            <h3 class="font-bold text-white mb-1">Гарантія від виробника</h3>
-                            <p class="text-sm text-slate-400">Офіційна гарантія 5 років від виробника на все обладнання.</p>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0 text-amber-400 font-bold">3</div>
+                            <div>
+                                <h3 class="font-bold text-white mb-1">Гарантія від виробника</h3>
+                                <p class="text-sm text-slate-400">Офіційна гарантія 5 років від виробника на все обладнання.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
-                <h3 class="text-xl font-bold text-white mb-4">Залишилися питання? Зв'яжіться з нами</h3>
-                <p class="text-slate-400 text-sm mb-6">Наш менеджер допоможе підібрати інвертор та батарею під ваші завдання та розрахує точну вартість.</p>
-                <a href="https://t.me/reservomanager" target="_blank" rel="noopener" class="flex items-center justify-center gap-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-5 py-4 rounded-xl shadow-lg transition text-sm sm:text-base whitespace-nowrap">
-                    <i class="fa-brands fa-telegram text-xl shrink-0"></i>
-                    <span>Написати в Telegram</span>
-                </a>
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                    <h3 class="text-xl font-bold text-white mb-4">Залишилися питання? Зв'яжіться з нами</h3>
+                    <p class="text-slate-400 text-sm mb-6">Наш менеджер допоможе підібрати інвертор та батарею під ваші завдання та розрахує точну вартість.</p>
+                    <a href="https://t.me/reservomanager" target="_blank" rel="noopener" class="flex items-center justify-center gap-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold px-5 py-4 rounded-xl shadow-lg transition text-sm sm:text-base whitespace-nowrap">
+                        <i class="fa-brands fa-telegram text-xl shrink-0"></i>
+                        <span>Написати в Telegram</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Electricians & Partner Program -->
-    <section id="partners" class="py-20 bg-slate-900/50 border-t border-slate-900">
+    <section id="partners" class="py-24 bg-slate-900/50 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12">
                 <span class="text-amber-400 text-xs font-bold uppercase tracking-widest block mb-2">Монтаж та співпраця</span>
@@ -392,17 +395,132 @@
         'deye-g5.1-prob': 'deye-g5-1-prob.png',
         'deye-akb-5k-pro': 'deye-akb-5k-pro.png',
         'deye-akb-16k-pro': 'deye-akb-16k-pro.png',
-        'solis-akb-16k': 'solis-akb-16k.jpg-Photoroom.jpg'
+        'solis-akb-16k': 'solis-akb-16k.png'
+    };
+
+    const ALT_IMAGES = {
+        'solis-akb-16k': ['solis-akb-16k.jpg-Photoroom.png', 'solis-akb-16k.jpg-Photoroom.jpg', 'solis-akb-16k.jpg']
+    };
+
+    const EXTENDED_INFO = {
+        'foxess-p50-5h': {
+            summary: 'Готова однофазна система резервного та сонячного живлення у єдиному монолітному корпусі (All-in-One). Поєднує гібридний інвертор потужністю 5 кВт та літій-залізо-фосфатний акумулятор на 5,12 кВт·год без зовнішніх силових кабелів між блоками.',
+            highlights: [
+                'Миттєве автоматичне перемикання на батарею при зникненні світла — техніка та роутер не перезавантажуються.',
+                'Сучасний естетичний корпус для встановлення у квартирі, приватному будинку чи офісі.',
+                'Інтелектуальний моніторинг та керування режимами заряду через мобільний додаток.',
+                'Довговічні безпечні елементи LiFePO₄ та офіційна гарантія 5 років від виробника.'
+            ]
+        },
+        'deye-20k-3p': {
+            summary: 'Флагманський трифазний гібридний інвертор низьковольтної серії (48 В) для великих приватних будинків, котеджів та комерційних об’єктів. Забезпечує стабільну роботу потужного трифазного та однофазного обладнання.',
+            highlights: [
+                '100% несиметричний вихід по фазах — кожна фаза може видавати до 50% номінальної потужності без перекосу.',
+                'Надпотужний заряд/розряд акумуляторів струмом до 350 А для швидкого поповнення резерву між відключеннями.',
+                'Миттєвий перехід у режим ДБЖ менш ніж за 4 мс — непомітно для котлів, серверів і побутової техніки.',
+                'Пиловологозахищений корпус IP65 для встановлення всередині приміщення або під навісом, гарантія 5 років.'
+            ]
+        },
+        'deye-15k-3p': {
+            summary: 'Трифазний гібридний інвертор Deye на 15 кВт (48 В) з чистою синусоїдою — оптимальний баланс потужності для сучасного будинку з електрокотлом, тепловим насосом або майстернею.',
+            highlights: [
+                'Підтримка 100% несиметричного навантаження по кожній із трьох фаз.',
+                'Високий струм заряду акумуляторів до 280 А дозволяє повністю зарядити батарею за 1,5–2 години.',
+                'Окремий програмований силовий порт (Smart Load / Gen) для підключення генератора або вторинних споживачів.',
+                'Захист корпусу IP65, вбудований Wi-Fi моніторинг та офіційна гарантія 5 років.'
+            ]
+        },
+        'deye-12k-3p': {
+            summary: 'Найпопулярніший трифазний гібридний інвертор ревізії SM2 на 12 кВт (48 В) для приватного будинку. Стабільно тримає пускові струми насосів, холодильників, кондиціонерів та систем опалення.',
+            highlights: [
+                'Чиста синусоїда та перемикання на резерв за 4 мс — безпечно для чутливої електроніки та газових котлів.',
+                'Повна несиметрія по фазах: однофазні прилади не вибивають інвертор при нерівномірному навантаженні.',
+                'Працює з низьковольтними акумуляторами LiFePO₄ 48–51,2 В по CAN/RS485.',
+                'Захист IP65, дистанційний контроль через додаток Deye Cloud та офіційна гарантія 5 років.'
+            ]
+        },
+        'deye-12k-1p': {
+            summary: 'Надпотужний однофазний гібридний інвертор на 12 кВт для будинків та об’єктів з однофазним введенням 220/230 В, де потрібна висока пікова потужність без переходу на 3 фази.',
+            highlights: [
+                'Потужний транзит мережі до 80 А та 3 незалежні MPPT-трекери для сонячних панелей різної орієнтації.',
+                'Дозволяє одночасно живити бойлер, варильну поверхню, пральну машину, освітлення та опалення.',
+                'Швидкий заряд акумуляторів великої ємності (15–30 кВт·год) у короткі вікна наявності світла.',
+                'Вологозахист IP65 та офіційна гарантія 5 років від виробника.'
+            ]
+        },
+        'deye-8k-am2p': {
+            summary: 'Оновлений однофазний гібридний інвертор серії SG06 (версія AM2-P) потужністю 8 кВт — золотий стандарт для приватного будинку або великої квартири з високим споживанням.',
+            highlights: [
+                'Два посилені MPPT-контролери (2+2 стрінги) для ефективного збору сонячної енергії навіть у похмуру погоду.',
+                'Транзит міської мережі до 70 А та миттєве перемикання на акумулятор за 4 мс.',
+                'Кольоровий сенсорний дисплей для зручного налаштування пріоритетів мережі, сонця та батареї.',
+                'Герметичний корпус IP65 та офіційна гарантія 5 років.'
+            ]
+        },
+        'deye-6k-1p': {
+            summary: 'Оновлена серія SG06 (версія BM2) на 6 кВт з повністю пасивним безвентиляторним охолодженням — працює абсолютно безшумно, тому ідеально підходить для встановлення у квартирі.',
+            highlights: [
+                'Безшумна робота (0 дБ) завдяки масивному радіатору без гучних кулерів.',
+                'Впевнено живить квартиру або невеликий будинок: холодильник, котел, освітлення, комп’ютери, мікрохвильову піч та пральну машину.',
+                'Можливість паралельного об’єднання кількох інверторів та підключення сонячних панелей.',
+                'Захист IP65 та офіційна гарантія 5 років від виробника.'
+            ]
+        },
+        'deye-6.6k-offgrid': {
+            summary: 'Потужний та доступний автономний інвертор (Off-Grid) на 6,6 кВт для створення надійного резервного живлення у квартирі, будинку чи офісі.',
+            highlights: [
+                'Висока номінальна потужність 6,6 кВт при компактних габаритах та вигідній ціні.',
+                'Функція ДБЖ (перемикання менш ніж за 10 мс) та чиста синусоїда на виході.',
+                'Вбудований MPPT-контролер для підключення сонячного поля та швидкий заряд LiFePO₄ 48 В.',
+                'Офіційна гарантія 5 років від виробника.'
+            ]
+        },
+        'deye-g5.1-prob': {
+            summary: 'Професійний літій-залізо-фосфатний (LiFePO₄) акумуляторний модуль ємністю 5,12 кВт·год (51,2 В / 100 А·год) у стандартному стійковому корпусі 19" для настінного, підлогового або шафового монтажу.',
+            highlights: [
+                'Безпечна хімія LiFePO₄ без ризику займання та ресурс понад 6000 циклів (понад 10 років щоденної експлуатації).',
+                'Вбудована інтелектуальна BMS-плата з прямим зв’язком (CAN/RS485) з інверторами Deye.',
+                'Легко масштабується — можна з’єднувати до 64 модулів паралельно для збільшення запасу енергії.',
+                'Офіційна гарантія 5 років від виробника.'
+            ]
+        },
+        'deye-akb-5k-pro': {
+            summary: 'Оновлений літій-залізо-фосфатний акумулятор Deye серії Pro-C ємністю 5,12 кВт·год (51,2 В / 100 А·год) із вбудованим інформативним круглим LED-дисплеєм на передній панелі.',
+            highlights: [
+                'Круглий екран на корпусі в реальному часі показує відсоток заряду (SOC), напругу, струм та температуру комірок.',
+                'Понад 6000 циклів заряду-розряду при глибині розряду 90% DOD.',
+                'Повна сумісність по CAN-шині з усіма інверторами Deye без ручного налаштування напруг.',
+                'Офіційна гарантія 5 років від виробника.'
+            ]
+        },
+        'deye-akb-16k-pro': {
+            summary: 'Високоємний акумуляторний блок на 16,38 кВт·год (51,2 В / 314 А·год) із круглим LED-дисплеєм — замінює три стандартні батареї по 5 кВт·год в одному компактному корпусі.',
+            highlights: [
+                'Величезний запас енергії (16,38 кВт·год) забезпечує 12–24+ годин повної автономності приватного будинку або офісу.',
+                'Сучасні призматичні комірки Grade-A на 314 А·год із ресурсом понад 6000 циклів.',
+                'Інформативний LED-дисплей на передній панелі та прямий протокол зв’язку з інверторами Deye.',
+                'Офіційна гарантія 5 років від виробника.'
+            ]
+        },
+        'solis-akb-16k': {
+            summary: 'Промисловий літій-залізо-фосфатний акумулятор Solis IntelliHouse PRO ємністю 16 кВт·год на базі нових комірок Grade-A 314 А·год у всепогодному герметичному корпусі.',
+            highlights: [
+                'Максимальний клас захисту корпусу IP66 — стійкий до пилу, вологи та перепадів температур.',
+                'Осередки класу Grade-A 314 А·год з низьким внутрішнім опором та високою віддачею струму.',
+                'Сумісний по CAN/RS485 з інверторами Solis, Deye та іншими гібридними системами 48/51,2 В.',
+                'Офіційна гарантія 5 років від виробника.'
+            ]
+        }
     };
 
     const KITS = [
-        { title: 'Інвертор 6,6 кВт + АКБ Pro-C 5,12 кВт·год', tag: 'Автономна · квартира', image: 'kit-6.6k-proc.jpg', ids: ['deye-6.6k-offgrid', 'deye-akb-5k-pro'] },
-        { title: 'Інвертор 6,6 кВт + АКБ Pro-B 5,12 кВт·год', tag: 'Автономна · квартира', image: 'kit-6.6k-prob.jpg', ids: ['deye-6.6k-offgrid', 'deye-g5.1-prob'] },
+        { title: 'Інвертор 6,6 кВт + АКБ Pro-C 5,12 кВт·год', tag: 'Автономна · для квартири', image: 'kit-6.6k-proc.jpg', ids: ['deye-6.6k-offgrid', 'deye-akb-5k-pro'] },
+        { title: 'Інвертор 6,6 кВт + АКБ Pro-B 5,12 кВт·год', tag: 'Автономна · для квартири', image: 'kit-6.6k-prob.jpg', ids: ['deye-6.6k-offgrid', 'deye-g5.1-prob'] },
         { title: 'Інвертор 6,6 кВт + АКБ 16 кВт·год', tag: 'Автономна · для дому', image: 'kit-6.6k-16k.jpg', ids: ['deye-6.6k-offgrid', 'deye-akb-16k-pro'] },
-        { title: 'Інвертор 6 кВт + АКБ Pro-C 5,12 кВт·год', tag: '1 фаза · квартира', image: 'kit-6k-proc.jpg', ids: ['deye-6k-1p', 'deye-akb-5k-pro'] },
-        { title: 'Інвертор 6 кВт + АКБ Pro-B 5,12 кВт·год', tag: '1 фаза · квартира', image: 'kit-6k-prob.jpg', ids: ['deye-6k-1p', 'deye-g5.1-prob'] },
+        { title: 'Інвертор 6 кВт + АКБ Pro-C 5,12 кВт·год', tag: '1 фаза · для квартири', image: 'kit-6k-proc.jpg', ids: ['deye-6k-1p', 'deye-akb-5k-pro'] },
+        { title: 'Інвертор 6 кВт + АКБ Pro-B 5,12 кВт·год', tag: '1 фаза · для квартири', image: 'kit-6k-prob.jpg', ids: ['deye-6k-1p', 'deye-g5.1-prob'] },
         { title: 'Інвертор 6 кВт + АКБ 16 кВт·год', tag: '1 фаза · для дому', image: 'kit-6k-16k.jpg', ids: ['deye-6k-1p', 'deye-akb-16k-pro'] },
-        { title: 'Інвертор 8 кВт + АКБ Pro-B 5,12 кВт·год', tag: '1 фаза · будинок', image: 'kit-8k-prob.jpg', ids: ['deye-8k-am2p', 'deye-g5.1-prob'] },
+        { title: 'Інвертор 8 кВт + АКБ Pro-B 5,12 кВт·год', tag: '1 фаза · для дому', image: 'kit-8k-prob.jpg', ids: ['deye-8k-am2p', 'deye-g5.1-prob'] },
         { title: 'Інвертор 8 кВт + АКБ 16 кВт·год', tag: '1 фаза · для дому', image: 'kit-8k-16k.jpg', ids: ['deye-8k-am2p', 'deye-akb-16k-pro'] }
     ];
 
@@ -418,7 +536,7 @@
         { id: 'deye-g5.1-prob', category: 'batteries', name: 'Акумулятор Deye SE-G5.1 Pro-B - 51.2V 5.12kWh', badge: 'Стійковий Rack', price: 52000, oldPrice: 56500, image: 'deye-g5-1-prob.png', desc: 'Літій-залізо-фосфатний акумулятор 5.12 кВт·год у стійковому виконанні. 6000+ циклів.', specs: 'Ємність: 5.12 кВт·год | LiFePO4 | 6000 циклів | CAN/RS485' },
         { id: 'deye-akb-5k-pro', category: 'batteries', name: 'Акумулятор Deye SE-F5 Pro-C LiFePO4 51.2V/100AH (з дисплеєм)', badge: 'З дисплеєм', price: 53500, oldPrice: 58000, image: 'deye-akb-5k-pro.png', desc: 'Серія Pro-C з інформативним круглим дисплеєм на корпусі для моніторингу SOC.', specs: 'Ємність: 5.12 кВт·год | З дисплеєм | LiFePO4 | 6000 циклів' },
         { id: 'deye-akb-16k-pro', category: 'batteries', name: 'Акумулятор Deye SE-F16-C LiFePO4 51.2V/314AH (з дисплеєм)', badge: 'Топ резерву', price: 146000, oldPrice: 158000, image: 'deye-akb-16k-pro.png', desc: 'Флагманський високоємний акумулятор 16.38 кВт·год з круглим LED-дисплеєм.', specs: 'Ємність: 16.38 кВт·год | З дисплеєм | LiFePO4 | 6000 циклів' },
-        { id: 'solis-akb-16k', category: 'batteries', name: 'Акумулятор LiFePO4 Solis IntelliHouse 16kWh PRO', badge: 'IP66 захист', price: 138000, oldPrice: 149000, image: 'solis-akb-16k.jpg-Photoroom.jpg', desc: 'Промислові осередки Grade-A 314Ah. Всепогодний корпус IP66.', specs: 'Ємність: 16 кВт·год | IP66 | Grade-A осередки' }
+        { id: 'solis-akb-16k', category: 'batteries', name: 'Акумулятор LiFePO4 Solis IntelliHouse 16kWh PRO', badge: 'IP66 захист', price: 138000, oldPrice: 149000, image: 'solis-akb-16k.png', desc: 'Промислові осередки Grade-A 314Ah. Всепогодний корпус IP66.', specs: 'Ємність: 16 кВт·год | IP66 | Grade-A осередки' }
     ];
 
     const CATEGORY_LABELS = { inverters: 'Інвертор', batteries: 'Акумулятор', systems: 'Система' };
@@ -436,6 +554,19 @@
     }
 
     function money(n) { return Number(n).toLocaleString('uk-UA') + ' ₴'; }
+
+    function formatBadge(raw) {
+        const text = String(raw || '').trim();
+        if (!text) return '<span></span>';
+        const parts = text
+            .split(/\s*(?:•|\||\/|\n)\s*|\s+(?=(?:Очікується|В наявності|Стійковий|З дисплеєм|Топ|Хіт|IP66))/i)
+            .map((s) => s.trim())
+            .filter(Boolean);
+        if (parts.length > 1) {
+            return `<div class="inline-flex flex-col items-start gap-0.5 bg-amber-500/10 text-amber-400 text-[11px] font-bold px-3 py-1.5 rounded-2xl border border-amber-500/20 leading-tight">${parts.map((line) => `<span>${esc(line)}</span>`).join('')}</div>`;
+        }
+        return `<span class="bg-amber-500/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/20">${esc(text)}</span>`;
+    }
 
     function imageSrc(image) {
         if (!image) return '';
@@ -530,10 +661,12 @@
         }
     }
 
-    function handleImgError(img, fallbackFile) {
-        if (!img.dataset.triedFallback && fallbackFile) {
-            img.dataset.triedFallback = '1';
-            img.src = imageSrc(fallbackFile);
+    function handleImgError(img, productId) {
+        const candidates = [FALLBACK_IMAGES[productId], ...(ALT_IMAGES[productId] || [])].filter(Boolean);
+        const step = Number(img.dataset.tryStep || 0);
+        if (step < candidates.length) {
+            img.dataset.tryStep = String(step + 1);
+            img.src = imageSrc(candidates[step]);
             return;
         }
         img.replaceWith(Object.assign(document.createElement('i'), {
@@ -543,23 +676,22 @@
 
     function imageBlock(p) {
         const primaryFile = p.image || FALLBACK_IMAGES[p.id] || '';
-        const fallbackFile = FALLBACK_IMAGES[p.id] || '';
         const src = imageSrc(primaryFile);
         if (!src) {
             return `<div class="h-64 bg-slate-950 flex items-center justify-center p-4 watermark-img"><i class="fa-solid fa-solar-panel text-6xl text-slate-800"></i></div>`;
         }
         return `<div class="h-64 bg-slate-950 flex items-center justify-center p-4 watermark-img overflow-hidden">
                     <img src="${esc(src)}" alt="${esc(p.name)}" loading="lazy" draggable="false" class="max-h-full object-contain"
-                         onerror="handleImgError(this, '${esc(fallbackFile)}')">
+                         onerror="handleImgError(this, '${esc(p.id)}')">
                     <div class="img-shield"></div>
                 </div>`;
     }
 
     function priceBlock(p, big) {
-        const cls = big ? 'text-3xl' : 'text-2xl';
-        if (!p.price) return `<span class="${cls} font-extrabold text-white">Ціна за запитом</span>`;
-        const old = p.oldPrice > p.price ? `<span class="block text-xs text-slate-500 line-through">${money(p.oldPrice)}</span>` : '';
-        return `<span class="${cls} font-extrabold text-white">${money(p.price)}</span>${old}`;
+        const cls = big ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl';
+        if (!p.price) return `<span class="${cls} font-extrabold text-white whitespace-nowrap">Ціна за запитом</span>`;
+        const old = p.oldPrice > p.price ? `<span class="block text-xs text-slate-500 line-through whitespace-nowrap">${money(p.oldPrice)}</span>` : '';
+        return `<span class="${cls} font-extrabold text-white whitespace-nowrap">${money(p.price)}</span>${old}`;
     }
 
     function renderProducts() {
@@ -582,9 +714,9 @@
                 <div>
                     ${imageBlock(p)}
                     <div class="p-6">
-                        <div class="flex items-center justify-between mb-3">
-                            ${p.badge ? `<span class="bg-amber-500/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/20">${esc(p.badge)}</span>` : '<span></span>'}
-                            <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">${esc(CATEGORY_LABELS[p.category] || '')}</span>
+                        <div class="flex items-start justify-between gap-2 mb-3">
+                            ${formatBadge(p.badge)}
+                            <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold shrink-0 pt-1">${esc(CATEGORY_LABELS[p.category] || '')}</span>
                         </div>
                         <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">${esc(p.name)}</h3>
                         <p class="text-slate-400 text-sm mb-4 line-clamp-2">${esc(p.desc)}</p>
@@ -593,13 +725,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="p-6 pt-4 flex items-center justify-between border-t border-slate-800/60 mt-auto">
-                    <div>${priceBlock(p, false)}</div>
-                    <div class="flex space-x-2">
+                <div class="p-5 sm:p-6 pt-4 flex items-center justify-between gap-2 border-t border-slate-800/60 mt-auto">
+                    <div class="shrink-0">${priceBlock(p, false)}</div>
+                    <div class="flex items-center space-x-2 shrink-0">
                         <button data-action="details" data-id="${esc(p.id)}" class="bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-xl transition" title="Детальніше" aria-label="Детальніше">
                             <i class="fa-solid fa-circle-info"></i>
                         </button>
-                        <button data-action="order" data-id="${esc(p.id)}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-3 rounded-xl transition shadow-lg shadow-amber-500/10">
+                        <button data-action="order" data-id="${esc(p.id)}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 sm:px-4 py-3 rounded-xl transition shadow-lg shadow-amber-500/10 whitespace-nowrap text-sm">
                             Замовити
                         </button>
                     </div>
@@ -658,13 +790,13 @@
                             ${k.items.map((p) => `
                                 <li class="flex items-start justify-between gap-4 text-sm">
                                     <span class="text-slate-300"><i class="fa-solid fa-check text-amber-400 mr-2"></i>${esc(p.name)}</span>
-                                    <span class="text-slate-400 whitespace-nowrap">${p.price ? money(p.price) : 'за запитом'}</span>
+                                    <span class="text-slate-400 whitespace-nowrap shrink-0">${p.price ? money(p.price) : 'за запитом'}</span>
                                 </li>`).join('')}
                         </ul>
                     </div>
-                    <div class="flex items-center justify-between border-t border-slate-800 pt-5 mt-auto">
-                        <span class="text-2xl font-extrabold text-white">${hasPrice ? money(total) : 'Ціна за запитом'}</span>
-                        <button data-action="order-kit" data-kit="${i}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-3 rounded-xl transition shadow-lg shadow-amber-500/10">
+                    <div class="flex items-center justify-between gap-3 border-t border-slate-800 pt-5 mt-auto">
+                        <span class="text-xl sm:text-2xl font-extrabold text-white whitespace-nowrap shrink-0">${hasPrice ? money(total) : 'Ціна за запитом'}</span>
+                        <button data-action="order-kit" data-kit="${i}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 sm:px-5 py-3 rounded-xl transition shadow-lg shadow-amber-500/10 whitespace-nowrap text-xs sm:text-sm shrink-0">
                             Замовити комплект
                         </button>
                     </div>
@@ -689,17 +821,37 @@
     function openDetails(productId) {
         const p = products.find((item) => item.id === productId);
         if (!p) return;
+        const ext = EXTENDED_INFO[p.id];
+        const specItems = String(p.specs || '').split('|').map((s) => s.trim()).filter(Boolean);
+
         $('details-content').innerHTML = `
-            <h2 class="text-2xl font-extrabold text-white mb-3 pr-8">${esc(p.name)}</h2>
-            ${p.badge ? `<div class="inline-block bg-amber-500/10 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/20 mb-4">${esc(p.badge)}</div>` : ''}
-            <p class="text-slate-300 text-base mb-6 leading-relaxed">${esc(p.desc)}</p>
-            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-6">
-                <h4 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2">Технічні характеристики:</h4>
-                <p class="text-slate-300 text-sm">${esc(p.specs)}</p>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white mb-3 pr-8 leading-snug">${esc(p.name)}</h2>
+            <div class="mb-4">${formatBadge(p.badge)}</div>
+            <p class="text-slate-200 text-sm sm:text-base mb-4 leading-relaxed">${esc(ext ? ext.summary : p.desc)}</p>
+            ${p.desc && ext ? `<p class="text-slate-400 text-sm mb-5 leading-relaxed">${esc(p.desc)}</p>` : ''}
+            ${ext && ext.highlights ? `
+                <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-5">
+                    <h4 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-3">Ключові переваги та можливості:</h4>
+                    <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        ${ext.highlights.map((item) => `
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-check text-amber-400 mt-1 shrink-0"></i>
+                                <span>${esc(item)}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            ` : ''}
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 sm:p-5 mb-6">
+                <h4 class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-2.5">Технічні характеристики:</h4>
+                ${specItems.length > 1
+                    ? `<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300 text-xs sm:text-sm">${specItems.map((s) => `<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0"></span><span>${esc(s)}</span></li>`).join('')}</ul>`
+                    : `<p class="text-slate-300 text-sm">${esc(p.specs)}</p>`
+                }
             </div>
-            <div class="flex items-center justify-between">
-                <div>${priceBlock(p, true)}</div>
-                <button data-action="order-from-details" data-id="${esc(p.id)}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3.5 rounded-xl transition shadow-lg">
+            <div class="flex items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
+                <div class="shrink-0">${priceBlock(p, true)}</div>
+                <button data-action="order-from-details" data-id="${esc(p.id)}" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 sm:px-6 py-3.5 rounded-xl transition shadow-lg whitespace-nowrap text-sm sm:text-base shrink-0">
                     Оформити замовлення
                 </button>
             </div>`;
@@ -789,6 +941,17 @@
     }
 
     document.addEventListener('click', (e) => {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (anchor) {
+            const target = document.querySelector(anchor.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                const align = anchor.dataset.scroll || 'center';
+                target.scrollIntoView({ behavior: 'smooth', block: align });
+                return;
+            }
+        }
+
         const filterBtn = e.target.closest('[data-filter]');
         if (filterBtn) {
             currentFilter = filterBtn.dataset.filter;
