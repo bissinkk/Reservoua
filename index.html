@@ -53,7 +53,6 @@
         #product-grid > *:hover, #kits-grid > *:hover { transform: translateY(-4px); border-color: rgba(251,191,36,.45) !important;
             box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 24px 60px -24px rgba(251,191,36,.4); }
         .light-fx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-        /* М'яке сонце: не засвічує текст на мобільних */
         .light-fx .orb { position: absolute; top: -240px; right: -180px; width: 520px; height: 520px; border-radius: 50%; filter: blur(18px); opacity: .55;
             background: radial-gradient(circle, rgba(255,246,214,.7) 0, rgba(253,230,138,.35) 18%, rgba(251,191,36,.18) 40%, transparent 70%);
             animation: lx-pulse 7s ease-in-out infinite; }
@@ -142,7 +141,6 @@
             <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Каталог інверторів та акумуляторів</h2>
         </div>
 
-        <!-- Липка панель перемикання категорій (бігає за користувачем у межах каталогу) -->
         <div class="sticky top-16 sm:top-20 z-30 -mx-4 px-4 sm:mx-0 sm:px-0 py-3 mb-8 bg-slate-950/85 backdrop-blur-md border-b border-slate-800/70">
             <div id="filters" class="flex flex-wrap gap-2">
                 <button data-filter="all" class="cat-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition whitespace-nowrap">Усі товари</button>
@@ -259,7 +257,6 @@
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Рекомендовані електрики та партнерство</h2>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Картка 1: Рекомендації для клієнтів -->
                 <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col justify-between">
                     <div>
                         <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl mb-6">
@@ -290,7 +287,6 @@
                     </a>
                 </div>
 
-                <!-- Картка 2: Партнерська програма для електриків -->
                 <div class="bg-slate-900 border border-amber-500/25 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col justify-between">
                     <div>
                         <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 text-xl mb-6">
@@ -380,22 +376,22 @@
     const CONFIG = {
         SHEET_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTWv8diYGSqt0DDNvgF1NaWXuM5d8ZWu9YYK4boQMtkE1iCU7_RBadqBjtUp5UDwcyNN_DUfISohw98/pub?gid=655523882&single=true&output=csv',
         ORDER_ENDPOINT: 'https://reservo-orders.bissinkk.workers.dev',
-        IMG_BASE: 'img/',
+        IMG_BASE: '',
         MANAGER_URL: 'https://t.me/reservomanager'
     };
 
     const FALLBACK_IMAGES = {
-        'foxess-p50-5h': 'foxess-p50-5h.jpg',
-        'deye-20k-3p': 'deye-20k-3p.jpg',
-        'deye-15k-3p': 'deye-15k-3p.jpg',
-        'deye-12k-3p': 'deye-12k-3p.jpg',
-        'deye-12k-1p': 'deye-12k-1p.jpg',
-        'deye-8k-am2p': 'deye-8k-am2p.jpg',
-        'deye-6k-1p': 'deye-6k-1p.jpg',
-        'deye-6.6k-offgrid': 'deye-6-6k-offgrid.jpg',
-        'deye-g5.1-prob': 'deye-g5-1-prob.jpg',
-        'deye-akb-5k-pro': 'deye-akb-5k-pro.jpg',
-        'deye-akb-16k-pro': 'deye-akb-16k-pro.jpg',
+        'foxess-p50-5h': 'foxess-p50-5h.png',
+        'deye-20k-3p': 'deye-20k-3p.png',
+        'deye-15k-3p': 'deye-15k-3p.png',
+        'deye-12k-3p': 'deye-12k-3p.png',
+        'deye-12k-1p': 'deye-12k-1p.png',
+        'deye-8k-am2p': 'deye-8k-am2p.png',
+        'deye-6k-1p': 'deye-6k-1p.png',
+        'deye-6.6k-offgrid': 'deye-6-6k-offgrid.png',
+        'deye-g5.1-prob': 'deye-g5-1-prob.png',
+        'deye-akb-5k-pro': 'deye-akb-5k-pro.png',
+        'deye-akb-16k-pro': 'deye-akb-16k-pro.png',
         'solis-akb-16k': 'solis-akb-16k.jpg-Photoroom.jpg'
     };
 
@@ -411,17 +407,17 @@
     ];
 
     const DEFAULT_PRODUCTS = [
-        { id: 'foxess-p50-5h', category: 'systems', name: 'Система накопичення енергії 5,0 кВт 5,12 kWh Fox ESS (P50-5-H)', badge: 'Очікується 23-25 лист.', price: 175000, oldPrice: 189000, image: 'foxess-p50-5h.jpg', desc: 'Однофазна система зберігання енергії Fox ESS у форматі «все в одному» (All-in-One): гібридний інвертор та акумулятор в одному комплекті.', specs: 'Потужність: 5 кВт | АКБ: 5,12 кВт·год | 1 фаза | All-in-One | Очікується 23-25 листопада' },
-        { id: 'deye-20k-3p', category: 'inverters', name: 'Гібридний інвертор Deye SUN-20K-SG05LP3-EU-SM2, 48 В, 20 кВт, 3 фази', badge: 'Топ потужність', price: 134500, oldPrice: 145000, image: 'deye-20k-3p.jpg', desc: 'Найпотужніший трифазний гібридний інвертор на 48 В із чистою синусоїдою, 100% несиметричним виходом по фазах.', specs: 'Потужність: 20 кВт | 3 фази | 100% несиметрія | Заряд АКБ: 350А | IP65' },
-        { id: 'deye-15k-3p', category: 'inverters', name: 'Гібридний інвертор Deye SUN-15K-SG05LP3-EU-SM2, 48 В, 15 кВт, 3 фази', badge: 'В наявності', price: 112000, oldPrice: 121000, image: 'deye-15k-3p.jpg', desc: 'Надпотужний трифазний гібридний інвертор (ДБЖ) на 15 кВт з чистою синусоїдою та зарядом АКБ до 280А.', specs: 'Потужність: 15 кВт | 3 фази | Заряд АКБ: 280А | IP65' },
-        { id: 'deye-12k-3p', category: 'inverters', name: 'Інвертор Deye SUN-12K-SG05LP3-EU-SM2 трифазний чиста синусоїда', badge: 'В наявності', price: 106500, oldPrice: 114000, image: 'deye-12k-3p.jpg', desc: 'Оновлена ревізія SM2: трифазний гібридний інвертор 12 кВт з чистою синусоїдою та 100% несиметричним виходом.', specs: 'Потужність: 12 кВт | 3 фази | Чиста синусоїда | IP65' },
-        { id: 'deye-12k-1p', category: 'inverters', name: 'Гібридний інвертор Deye 12 кВт SUN-12K-SG02LP1-EU-AM3 1 фаза', badge: 'В наявності', price: 98500, oldPrice: 105000, image: 'deye-12k-1p.jpg', desc: 'Надпотужний 1-фазний гібридний інвертор на 12 кВт для великих будинків та бізнесу. 3 MPPT-трекери.', specs: 'Потужність: 12 кВт | 1 фаза | 3 MPPT | Транзит 80А | IP65' },
-        { id: 'deye-8k-am2p', category: 'inverters', name: 'Гібридний інвертор Deye SUN-8K-SG06LP1-EU-AM2-P', badge: 'В наявності', price: 59990, oldPrice: 64500, image: 'deye-8k-am2p.jpg', desc: 'Оновлена серія SG06 (версія AM2-P): 2 потужні MPPT по 2 стрінги, транзит мережі 70А.', specs: 'Потужність: 8 кВт | 1 фаза | 2 MPPT (2+2) | IP65' },
-        { id: 'deye-6k-1p', category: 'inverters', name: 'Гібридний інвертор DEYE SUN-6K-SG06LP1-EU-BM2', badge: 'Хіт продажів', price: 53500, oldPrice: 58000, image: 'deye-6k-1p.jpg', desc: 'Оновлена серія SG06: абсолютно безшумне пасивне охолодження, захист IP65.', specs: 'Потужність: 6 кВт | 1 фаза | Безшумний | IP65' },
-        { id: 'deye-6.6k-offgrid', category: 'inverters', name: 'Автономний інвертор Deye SUN-6.6K-OG03LP1-EU-AM2 (OFF-GRID)', badge: 'В наявності', price: 41000, oldPrice: 45000, image: 'deye-6-6k-offgrid.jpg', desc: 'Потужний автономний інвертор на 6.6 кВт для квартири чи будинку. ДБЖ < 10 мс.', specs: 'Потужність: 6.6 кВт | 48В | Off-Grid | Чиста синусоїда' },
-        { id: 'deye-g5.1-prob', category: 'batteries', name: 'Акумулятор Deye SE-G5.1 Pro-B - 51.2V 5.12kWh', badge: 'Стійковий Rack', price: 52000, oldPrice: 56500, image: 'deye-g5-1-prob.jpg', desc: 'Літій-залізо-фосфатний акумулятор 5.12 кВт·год у стійковому виконанні. 6000+ циклів.', specs: 'Ємність: 5.12 кВт·год | LiFePO4 | 6000 циклів | CAN/RS485' },
-        { id: 'deye-akb-5k-pro', category: 'batteries', name: 'Акумулятор Deye SE-F5 Pro-C LiFePO4 51.2V/100AH (з дисплеєм)', badge: 'З дисплеєм', price: 53500, oldPrice: 58000, image: 'deye-akb-5k-pro.jpg', desc: 'Серія Pro-C з інформативним круглим дисплеєм на корпусі для моніторингу SOC.', specs: 'Ємність: 5.12 кВт·год | З дисплеєм | LiFePO4 | 6000 циклів' },
-        { id: 'deye-akb-16k-pro', category: 'batteries', name: 'Акумулятор Deye SE-F16-C LiFePO4 51.2V/314AH (з дисплеєм)', badge: 'Топ резерву', price: 146000, oldPrice: 158000, image: 'deye-akb-16k-pro.jpg', desc: 'Флагманський високоємний акумулятор 16.38 кВт·год з круглим LED-дисплеєм.', specs: 'Ємність: 16.38 кВт·год | З дисплеєм | LiFePO4 | 6000 циклів' },
+        { id: 'foxess-p50-5h', category: 'systems', name: 'Система накопичення енергії 5,0 кВт 5,12 kWh Fox ESS (P50-5-H)', badge: 'Очікується 23-25 лист.', price: 175000, oldPrice: 189000, image: 'foxess-p50-5h.png', desc: 'Однофазна система зберігання енергії Fox ESS у форматі «все в одному» (All-in-One): гібридний інвертор та акумулятор в одному комплекті.', specs: 'Потужність: 5 кВт | АКБ: 5,12 кВт·год | 1 фаза | All-in-One | Очікується 23-25 листопада' },
+        { id: 'deye-20k-3p', category: 'inverters', name: 'Гібридний інвертор Deye SUN-20K-SG05LP3-EU-SM2, 48 В, 20 кВт, 3 фази', badge: 'Топ потужність', price: 134500, oldPrice: 145000, image: 'deye-20k-3p.png', desc: 'Найпотужніший трифазний гібридний інвертор на 48 В із чистою синусоїдою, 100% несиметричним виходом по фазах.', specs: 'Потужність: 20 кВт | 3 фази | 100% несиметрія | Заряд АКБ: 350А | IP65' },
+        { id: 'deye-15k-3p', category: 'inverters', name: 'Гібридний інвертор Deye SUN-15K-SG05LP3-EU-SM2, 48 В, 15 кВт, 3 фази', badge: 'В наявності', price: 112000, oldPrice: 121000, image: 'deye-15k-3p.png', desc: 'Надпотужний трифазний гібридний інвертор (ДБЖ) на 15 кВт з чистою синусоїдою та зарядом АКБ до 280А.', specs: 'Потужність: 15 кВт | 3 фази | Заряд АКБ: 280А | IP65' },
+        { id: 'deye-12k-3p', category: 'inverters', name: 'Інвертор Deye SUN-12K-SG05LP3-EU-SM2 трифазний чиста синусоїда', badge: 'В наявності', price: 106500, oldPrice: 114000, image: 'deye-12k-3p.png', desc: 'Оновлена ревізія SM2: трифазний гібридний інвертор 12 кВт з чистою синусоїдою та 100% несиметричним виходом.', specs: 'Потужність: 12 кВт | 3 фази | Чиста синусоїда | IP65' },
+        { id: 'deye-12k-1p', category: 'inverters', name: 'Гібридний інвертор Deye 12 кВт SUN-12K-SG02LP1-EU-AM3 1 фаза', badge: 'В наявності', price: 98500, oldPrice: 105000, image: 'deye-12k-1p.png', desc: 'Надпотужний 1-фазний гібридний інвертор на 12 кВт для великих будинків та бізнесу. 3 MPPT-трекери.', specs: 'Потужність: 12 кВт | 1 фаза | 3 MPPT | Транзит 80А | IP65' },
+        { id: 'deye-8k-am2p', category: 'inverters', name: 'Гібридний інвертор Deye SUN-8K-SG06LP1-EU-AM2-P', badge: 'В наявності', price: 59990, oldPrice: 64500, image: 'deye-8k-am2p.png', desc: 'Оновлена серія SG06 (версія AM2-P): 2 потужні MPPT по 2 стрінги, транзит мережі 70А.', specs: 'Потужність: 8 кВт | 1 фаза | 2 MPPT (2+2) | IP65' },
+        { id: 'deye-6k-1p', category: 'inverters', name: 'Гібридний інвертор DEYE SUN-6K-SG06LP1-EU-BM2', badge: 'Хіт продажів', price: 53500, oldPrice: 58000, image: 'deye-6k-1p.png', desc: 'Оновлена серія SG06: абсолютно безшумне пасивне охолодження, захист IP65.', specs: 'Потужність: 6 кВт | 1 фаза | Безшумний | IP65' },
+        { id: 'deye-6.6k-offgrid', category: 'inverters', name: 'Автономний інвертор Deye SUN-6.6K-OG03LP1-EU-AM2 (OFF-GRID)', badge: 'В наявності', price: 41000, oldPrice: 45000, image: 'deye-6-6k-offgrid.png', desc: 'Потужний автономний інвертор на 6.6 кВт для квартири чи будинку. ДБЖ < 10 мс.', specs: 'Потужність: 6.6 кВт | 48В | Off-Grid | Чиста синусоїда' },
+        { id: 'deye-g5.1-prob', category: 'batteries', name: 'Акумулятор Deye SE-G5.1 Pro-B - 51.2V 5.12kWh', badge: 'Стійковий Rack', price: 52000, oldPrice: 56500, image: 'deye-g5-1-prob.png', desc: 'Літій-залізо-фосфатний акумулятор 5.12 кВт·год у стійковому виконанні. 6000+ циклів.', specs: 'Ємність: 5.12 кВт·год | LiFePO4 | 6000 циклів | CAN/RS485' },
+        { id: 'deye-akb-5k-pro', category: 'batteries', name: 'Акумулятор Deye SE-F5 Pro-C LiFePO4 51.2V/100AH (з дисплеєм)', badge: 'З дисплеєм', price: 53500, oldPrice: 58000, image: 'deye-akb-5k-pro.png', desc: 'Серія Pro-C з інформативним круглим дисплеєм на корпусі для моніторингу SOC.', specs: 'Ємність: 5.12 кВт·год | З дисплеєм | LiFePO4 | 6000 циклів' },
+        { id: 'deye-akb-16k-pro', category: 'batteries', name: 'Акумулятор Deye SE-F16-C LiFePO4 51.2V/314AH (з дисплеєм)', badge: 'Топ резерву', price: 146000, oldPrice: 158000, image: 'deye-akb-16k-pro.png', desc: 'Флагманський високоємний акумулятор 16.38 кВт·год з круглим LED-дисплеєм.', specs: 'Ємність: 16.38 кВт·год | З дисплеєм | LiFePO4 | 6000 циклів' },
         { id: 'solis-akb-16k', category: 'batteries', name: 'Акумулятор LiFePO4 Solis IntelliHouse 16kWh PRO', badge: 'IP66 захист', price: 138000, oldPrice: 149000, image: 'solis-akb-16k.jpg-Photoroom.jpg', desc: 'Промислові осередки Grade-A 314Ah. Всепогодний корпус IP66.', specs: 'Ємність: 16 кВт·год | IP66 | Grade-A осередки' }
     ];
 
